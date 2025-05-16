@@ -10,12 +10,14 @@ const oracleConfig =  {
 };
 
 async function oracleConnect(){
+    try {
     const connection = await oracledb.getConnection(oracleConfig)
     return connection
+    } catch (error) {
+    console.log('Connection Failed: ' + error);
+    }
 }
 
-const connection = oracleConnect()
+const oracleConnection = oracleConnect()
 
-console.log(connection);
-
-module.exports = connection;
+module.exports = oracleConnection
