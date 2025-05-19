@@ -28,7 +28,7 @@ app.get("/api", async (req, res) => {
     );
 
     // Send the list of names
-    const names = result.rows.map(row => row[0]);  // Assuming FIRSTNAME is the first column
+    const names = result.rows.map(row => row);  // Assuming FIRSTNAME is the first column
     res.status(200).json({ names });
 
   } catch (err) {
