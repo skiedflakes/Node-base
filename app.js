@@ -2,7 +2,8 @@ const express= require('express')
 const app = express()
 const port = 3000
 const oracledb = require('oracledb');
-const oracleConnection = require('./config/oracle');
+const SSO = require('./models/SSO');
+const { getToken, verifyToken } = require('./utils/getToken');
 
 // Enable Thick Mode
 //oracledb.initOracleClient({
@@ -28,8 +29,13 @@ app.get("/api", async (req, res) => {
     );
 
     // Send the list of names
-    const names = result.rows.map(row => row);  // Assuming FIRSTNAME is the first column
-    res.status(200).json({ names });
+    const names = result.rows.map(([id, firstName, lastName, deptCode]) => ({
+      id,
+      firstName,
+      lastName,
+      deptCode
+    }));    
+res.status(200).json({ names });
 
   } catch (err) {
     res.status(500).json({ error: "Database connection failed", details: err.message });
@@ -82,11 +88,26 @@ app.get("/api/users", async (req, res) => {
 
 
 app.post('/test',async(req,res) => {
-   const oracle = await oracleConnection
-    const result = await oracle.execute(
-      `SELECT ID, FIRSTNAME, LASTNAME, DEPTCODE FROM bpl.acs_users_tbl WHERE active = 'Y'`
-    );
-  res.send(result)
+  const data = await SSO.taxpayer('MAAN','DE VILLA','BIASCA')
+
+  const token = getToken({
+    taxpayerId : data.TAXPAYERID
+  })
+
+  console.log(verifyToken(token));
+
+  res.send({
+    success: true,
+    status: 200,
+    token: token
+  })
+
+})
+
+app.post('/taxpayer', async (req,res) => {
+  const data = await SSO.taxpayerById(75255)
+  
+  res.send(data)
 })
 
 
