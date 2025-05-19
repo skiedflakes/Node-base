@@ -10,11 +10,21 @@ const oracleConfig =  {
 };
 
 async function oracleConnect(){
+  let connection;
     try {
-    const connection = await oracledb.getConnection(oracleConfig)
+    connection = await oracledb.getConnection(oracleConfig)
     return connection
     } catch (error) {
     console.log('Connection Failed: ' + error);
+    }finally{
+      try {
+      if(connection){
+        await connection.close()
+      }
+      } catch (error) {
+        console.log('Error on closing connection: ' + error);
+      }
+
     }
 }
 
