@@ -16,15 +16,6 @@ async function oracleConnect(){
     return connection
     } catch (error) {
     console.log('Connection Failed: ' + error);
-    }finally{
-      try {
-      if(connection){
-        await connection.close()
-      }
-      } catch (error) {
-        console.log('Error on closing connection: ' + error);
-      }
-
     }
 }
 
