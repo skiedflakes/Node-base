@@ -3,8 +3,8 @@ const app = express()
 const port = 3000
 const oracledb = require('oracledb');
 const SSO = require('./models/SSO');
-const { getToken, verifyToken } = require('./utils/getToken');
 
+app.use(express.urlencoded({ extended: true }));
 // Enable Thick Mode
 //oracledb.initOracleClient({
 //  libDir: "C:/instantclient_23_8"  // Adjust to your actual path
@@ -86,31 +86,9 @@ app.get("/api/users", async (req, res) => {
   }
 });
 
+const ssoRouter = require('./routes/ssoRoutes')
 
-app.post('/test',async(req,res) => {
-  const data = await SSO.taxpayer('MAAN','DE VILLA','BIASCA')
-
-  const token = getToken({
-    taxpayerId : data.TAXPAYERID
-  })
-
-  console.log(verifyToken(token));
-
-  res.send({
-    success: true,
-    status: 200,
-    token: token
-  })
-
-})
-
-app.post('/taxpayer', async (req,res) => {
-  const data = await SSO.taxpayerById(75255)
-  
-  res.send(data)
-})
-
-
+app.use('/api/sso',ssoRouter)
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
