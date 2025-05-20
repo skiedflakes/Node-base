@@ -38,13 +38,9 @@ const SSO = {
             //dateofbirth: bday
         })
 
-    const resultCount = result.rows
-    if (resultCount.length == 0) {
-        return {
-            message: 'Taxpayer not found',
-            status: 404,
-            success:false,
-        }
+    const rows = result.rows
+    if (rows.length == 0) {
+        return false
     }
 
     const columnNames = result.metaData.map(value => value.name)
@@ -59,10 +55,15 @@ const SSO = {
 
     return data[0]
     },
-    taxpayerById: async (id) => {
+
+    taxpayerGetBusiness: async (id) => {
     const oracle = await oracleConnection
 
-    const result = await oracle.execute(`SELECT * FROM bpl.taxpayer_tbl where taxpayerid = :id`,{id: id})
+    const result = await oracle.execute(`select a.*,b.*
+    from bpl.taxpayer_tbl a
+    join bpl.business_tbl b 
+    on a.taxpayerid = b.taxpayerid
+    where a.taxpayerid = :id`,{id: id})
 
     const resultCount = result.rows
     if (resultCount.length == 0) {
