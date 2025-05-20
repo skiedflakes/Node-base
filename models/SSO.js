@@ -42,7 +42,8 @@ const SSO = {
     if (resultCount.length == 0) {
         return {
             message: 'Taxpayer not found',
-            status: 404
+            status: 404,
+            success:false,
         }
     }
 
@@ -62,6 +63,15 @@ const SSO = {
     const oracle = await oracleConnection
 
     const result = await oracle.execute(`SELECT * FROM bpl.taxpayer_tbl where taxpayerid = :id`,{id: id})
+
+    const resultCount = result.rows
+    if (resultCount.length == 0) {
+        return {
+            message: 'Taxpayer not found',
+            status: 404,
+            success:false,
+        }
+    }
 
     const columnNames = result.metaData.map(value => value.name)
 
