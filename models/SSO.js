@@ -59,9 +59,9 @@ const SSO = {
     taxpayerGetBusiness: async (id) => {
     const oracle = await oracleConnection
 
-    const result = await oracle.execute(`select a.*,b.*
-    from bpl.taxpayer_tbl a
-    join bpl.business_tbl b 
+    const result = await oracle.execute(`select a.*,b.taxpayerid
+    from bpl.business_tbl a
+    join bpl.taxpayer_tbl b 
     on a.taxpayerid = b.taxpayerid
     where a.taxpayerid = :id`,{id: id})
 
