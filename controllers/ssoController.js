@@ -80,8 +80,7 @@ exports.businessHistory = async (req,res) => {
 }
 
 exports.getTaxpayer = async (req,res) => {
-  const taxpayerid = req.body.taxpayerid
-  const data = await SSO.taxpayerById(taxpayerid)
+  const data = await SSO.taxpayerById(req.user.taxpayerId)
     
   return res.send({
         message: 'Taxpayer found',
