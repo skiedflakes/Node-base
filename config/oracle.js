@@ -1,7 +1,7 @@
 const oracledb= require('oracledb')
 oracledb.initOracleClient({
-//  libDir:  "C:/instantclient_23_8" // Adjust to your actual path
-  libDir: "C:/instantclient_21_17"
+    libDir:  "C:/instantclient_23_8" // Adjust to your actual path
+ // libDir: "C:/instantclient_21_17"
 });
 
 const oracleConfig =  {

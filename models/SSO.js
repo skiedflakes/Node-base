@@ -84,7 +84,7 @@ const SSO = {
         return obj;
     }); 
 
-    return data[0]
+    return data
     
     },
     business : async (ban) => {
