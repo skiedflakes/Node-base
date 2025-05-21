@@ -56,7 +56,7 @@ exports.getBusiness = async (req,res) => {
   }
 
   return res.send({
-        message: 'Taxpayer business found',
+        message: 'Business found',
         status: 200,
         success:true,
         data: {
@@ -72,7 +72,7 @@ exports.businessHistory = async (req,res) => {
 
   
   return res.send({
-        message: 'Taxpayer business found',
+        message: 'Business History found',
         status: 200,
         success:true,
         data: data
@@ -84,7 +84,7 @@ exports.getTaxpayer = async (req,res) => {
   const data = await SSO.taxpayerById(taxpayerid)
     
   return res.send({
-        message: 'Taxpayer business found',
+        message: 'Taxpayer found',
         status: 200,
         success:true,
         data: data
