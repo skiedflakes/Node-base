@@ -41,6 +41,15 @@ exports.getBusiness = async (req,res) => {
   const ban = req.body.ban
   const business = await SSO.business(ban)
   const history = await SSO.getBusinessHistory(ban)
+
+  if (business.success == false && history.success == false) {
+    return res.send({
+        message: 'Business not found',
+        status: 404,
+        success:false,
+    })
+  }
+
   return res.send({
     business: business,
     history: history
