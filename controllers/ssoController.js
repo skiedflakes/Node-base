@@ -19,8 +19,6 @@ exports.login = async (req,res) => {
     taxpayerId : data.TAXPAYERID
   })
 
-  console.log(verifyToken(token));
-
  return res.send({
         message: 'Taxpayer found',
         status: 200,
@@ -42,7 +40,7 @@ exports.TaxpayerBusiness = async (req,res) => {
   })
 }
 
-exports.getBusiness = async (req,res) => {
+exports.getBusinessandHistory = async (req,res) => {
   const ban = req.body.ban
   const business = await SSO.business(ban)
   const history = await SSO.getBusinessHistory(ban)
@@ -88,4 +86,17 @@ exports.getTaxpayer = async (req,res) => {
         success:true,
         data: data
   })
+}
+
+exports.business = async (req,res) => {
+  const ban = req.body.ban
+  const data = await SSO.business(ban)
+
+  return res.send({
+        message: 'Business found',
+        status: 200,
+        success:true,
+        data: data
+  })
+  
 }
