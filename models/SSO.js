@@ -93,7 +93,10 @@ const SSO = {
         const oracle = await oracleConnection
 
         const result = await oracle.execute(`select * from bpl.business_tbl 
-        where businessid = :ban`,{ban: ban})
+        where businessid = :ban
+        and retired='N'
+        and active = 'Y'
+        `,{ban: ban})
 
         const resultCount = result.rows
         if (resultCount.length == 0) {
@@ -142,7 +145,7 @@ const SSO = {
             return obj;
         }); 
 
-        return data[0]
+        return data
     },
     taxpayerById : async (taxpayerid) => {
         const oracle = await oracleConnection
