@@ -59,10 +59,12 @@ const SSO = {
     taxpayerGetBusiness: async (id) => {
     const oracle = await oracleConnection
 
-    const result = await oracle.execute(`select a.*,b.taxpayerid
+    const result = await oracle.execute(`select a.*,b.taxpayerid, c.brgyname
     from bpl.business_tbl a
     join bpl.taxpayer_tbl b 
     on a.taxpayerid = b.taxpayerid
+    join bpl.barangaylookup_tbl c 
+    on a.brgyid = c.brgyid
     where a.taxpayerid = :id`,{id: id})
 
     const resultCount = result.rows
