@@ -159,7 +159,15 @@ const SSO = {
 
         const columnNames = result.metaData.map(value => value.name)
 
+        const data = result.rows.map(row => {
+            let obj = {};
+            row.forEach((value, index) => {
+            obj[columnNames[index]] = value;
+            });
+            return obj;
+        }); 
 
+        return data[0]
         
     }
 
