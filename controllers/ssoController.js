@@ -34,7 +34,12 @@ exports.TaxpayerBusiness = async (req,res) => {
  const user = req.user 
  const data = await SSO.taxpayerGetBusiness(user.taxpayerId)
   
-  res.send(data)
+  return res.send({
+        message: 'Taxpayer business found',
+        status: 200,
+        success:true,
+        data: data
+  })
 }
 
 exports.getBusiness = async (req,res) => {
@@ -51,19 +56,37 @@ exports.getBusiness = async (req,res) => {
   }
 
   return res.send({
-    business: business,
-    history: history
+        message: 'Taxpayer business found',
+        status: 200,
+        success:true,
+        data: {
+          business: business,
+          history: history
+        }
   })
 }
 
 exports.businessHistory = async (req,res) => {
   const ban = req.body.ban
   const data = await SSO.getBusinessHistory(ban)
-  return res.send(data)
+
+  
+  return res.send({
+        message: 'Taxpayer business found',
+        status: 200,
+        success:true,
+        data: data
+  })
 }
 
 exports.getTaxpayer = async (req,res) => {
   const taxpayerid = req.body.taxpayerid
   const data = await SSO.taxpayerById(taxpayerid)
-  return res.send(data)
+    
+  return res.send({
+        message: 'Taxpayer business found',
+        status: 200,
+        success:true,
+        data: data
+  })
 }
