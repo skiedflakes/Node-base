@@ -31,7 +31,7 @@ const SSO = {
 
     const result = await oracle.execute(`SELECT * FROM bpl.taxpayer_tbl where active ='Y' and tplastname = :lastname 
         and tpgivenname = :firstname and tpmiddlename = :middlename 
-            `,{  // and trunc("DATEOFBIRTH") = TO_DATE(:dateofbirth, 'MM/DD/YYYY')
+            `,{
             lastname: lastname,
             firstname: firstname,
             middlename: middlename,
