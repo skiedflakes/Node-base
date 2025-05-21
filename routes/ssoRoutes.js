@@ -7,6 +7,6 @@ router.post('/login',SSOLogin,login)
 router.post('/taxpayer-business',SSOVerify,TaxpayerBusiness)
 router.post('/get-business',SSOVerify,getBusiness)
 router.post('/business-history',SSOVerify,businessHistory)
-router.post('/taxpayer',SSOVerify,getTaxpayer)
+router.get('/taxpayer',SSOVerify,getTaxpayer)
 
 module.exports = router
