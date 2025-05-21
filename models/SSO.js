@@ -86,6 +86,81 @@ const SSO = {
 
     return data[0]
     
+    },
+    business : async (ban) => {
+        const oracle = await oracleConnection
+
+        const result = await oracle.execute(`select * from bpl.business_tbl 
+        where businessid = :ban`,{ban: ban})
+
+        const resultCount = result.rows
+        if (resultCount.length == 0) {
+            return {
+                message: 'Business not found',
+                status: 404,
+                success:false,
+            }
+        }
+
+        const columnNames = result.metaData.map(value => value.name)
+
+        const data = result.rows.map(row => {
+            let obj = {};
+            row.forEach((value, index) => {
+            obj[columnNames[index]] = value;
+            });
+            return obj;
+        }); 
+
+        return data[0]
+        
+    },
+    getBusinessHistory : async (ban) => {
+        const oracle = await oracleConnection
+
+        const result = await oracle.execute(`select * from bpl.bpapplication_tbl 
+        where businessid = :ban`,{ban: ban})
+
+        const resultCount = result.rows
+        if (resultCount.length == 0) {
+            return {
+                message: 'Business not found',
+                status: 404,
+                success:false,
+            }
+        }
+
+        const columnNames = result.metaData.map(value => value.name)
+
+        const data = result.rows.map(row => {
+            let obj = {};
+            row.forEach((value, index) => {
+            obj[columnNames[index]] = value;
+            });
+            return obj;
+        }); 
+
+        return data[0]
+    },
+    taxpayerById : async (taxpayerid) => {
+        const oracle = await oracleConnection
+
+        const result = await oracle.execute(`select * from bpl.taxpayer_tbl 
+        where taxpayerid = :taxpayerid`,{taxpayerid: taxpayerid})
+
+        const resultCount = result.rows
+        if (resultCount.length == 0) {
+            return {
+                message: 'Taxpayer not found',
+                status: 404,
+                success:false,
+            }
+        }
+
+        const columnNames = result.metaData.map(value => value.name)
+
+
+        
     }
 
 }

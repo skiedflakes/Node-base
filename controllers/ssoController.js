@@ -30,11 +30,31 @@ exports.login = async (req,res) => {
 
 }
 
-exports.getTaxpayer = async (req,res) => {
+exports.TaxpayerBusiness = async (req,res) => {
  const user = req.user 
  const data = await SSO.taxpayerGetBusiness(user.taxpayerId)
   
   res.send(data)
 }
 
+exports.getBusiness = async (req,res) => {
+  const ban = req.body.ban
+  const business = await SSO.business(ban)
+  const history = await SSO.getBusinessHistory(ban)
+  return res.send({
+    business: business,
+    history: history
+  })
+}
 
+exports.businessHistory = async (req,res) => {
+  const ban = req.body.ban
+  const data = await SSO.getBusinessHistory(ban)
+  return res.send(data)
+}
+
+exports.getTaxpayer = async (req,res) => {
+  const taxpayerid = req.body.taxpayerid
+  const data = await SSO.taxpayerById(taxpayerid)
+  return res.send(data)
+}
