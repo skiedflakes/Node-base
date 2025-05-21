@@ -92,7 +92,7 @@ const SSO = {
     business : async (ban) => {
         const oracle = await oracleConnection
 
-        const result = await oracle.execute(`select * from bpl.business_tbl 
+        const result = await oracle.execute(`select a.*, b.brgyname from bpl.business_tbl a join bpl.barangaylookup_tbl b on a.brgyid = b.brgyid
         where businessid = :ban
         and retired='N'
         and active = 'Y'
@@ -124,7 +124,7 @@ const SSO = {
         const oracle = await oracleConnection
 
         const result = await oracle.execute(`select * from bpl.bpapplication_tbl 
-        where businessid = :ban`,{ban: ban})
+        where businessid = :ban  order by  yearapplied desc`,{ban: ban})
 
         const resultCount = result.rows
         if (resultCount.length == 0) {
