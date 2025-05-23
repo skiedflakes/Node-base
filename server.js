@@ -3,12 +3,13 @@ const multer = require('multer');
 const express = require('express');
 const cors = require("cors");
 
-
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const ssoRouter = require('./routes/ssoRoutes')
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+
 
 app.use(cors()); // Allow all origins (or configure specifically)
 //json parser
@@ -21,7 +22,6 @@ app.use(express.json());
 
 // Middleware to handle form-data (multipart/form-data)
 app.use(upload.none()); // This will parse form-data without files
-
 
 // Routes
 app.use('/api/auth', authRoutes);
