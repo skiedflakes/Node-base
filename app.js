@@ -1,6 +1,6 @@
 const express= require('express')
 const app = express()
-const port = 3000
+const port = 5000
 const oracledb = require('oracledb');
 const SSO = require('./models/SSO');
 
@@ -50,7 +50,6 @@ res.status(200).json({ names });
   }
 });
 
-
 app.get("/api/users", async (req, res) => {
   let connection;
 
@@ -90,7 +89,7 @@ const ssoRouter = require('./routes/ssoRoutes')
 
 app.use('/api/sso',ssoRouter)
 
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log("Server is running on port 3000");
 });
 
