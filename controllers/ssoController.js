@@ -31,6 +31,10 @@ exports.login = async (req,res) => {
 exports.TaxpayerBusiness = async (req,res) => {
  const user = req.user 
  const data = await SSO.taxpayerGetBusiness(user.taxpayerId)
+
+ if (!data.success) {
+  return res.status(200).send(data)
+ }
   
   return res.send({
         message: 'Taxpayer business found',
@@ -45,7 +49,9 @@ exports.getBusinessandHistory = async (req,res) => {
   const business = await SSO.business(ban)
   const history = await SSO.getBusinessHistory(ban)
 
-  if (business.success == false && history.success == false) {
+  console.log(business);
+
+  if (!business.success && !history.success) {
     return res.send({
         message: 'Business not found',
         status: 404,
@@ -68,7 +74,10 @@ exports.businessHistory = async (req,res) => {
   const ban = req.body.ban
   const data = await SSO.getBusinessHistory(ban)
 
-  
+  if (!data.success) {
+    return res.send(data)
+  }
+
   return res.send({
         message: 'Business History found',
         status: 200,
@@ -91,6 +100,10 @@ exports.getTaxpayer = async (req,res) => {
 exports.business = async (req,res) => {
   const ban = req.body.ban
   const data = await SSO.business(ban)
+
+  if (!data.success) {
+      return res.send(data)
+  }
 
   return res.send({
         message: 'Business found',
