@@ -53,10 +53,6 @@ exports.getBusinessandHistory = async (req,res) => {
   const business = await SSO.business(ban)
   const history = await SSO.getBusinessHistory(ban)
 
-  console.log(history.length);
-  console.log(Object.keys(business).length);
-  console.log(business);
-
   if (!business.success && history < 0) {
     return res.send({
         message: 'Business not found',
