@@ -9,26 +9,25 @@ exports.SSOLogin = (req,res,next) => {
 
   const {firstname , lastname , middlename , dateofbirth} = req.body
 
+  let errors = []
+
     if (!isLettersAndSpaces(firstname)) {
-    return res.status(422).send({
-        message : 'Firstname must contain a letters',
-        error: 422,
-        status: false
-    })
+      errors.push('Firstname must contain a letters') 
     }
     if (!isLettersAndSpaces(lastname)) {
-    return    res.status(422).send({
-        message : 'Lastname must contain a letters',
-        error: 422,
-        status: false
-    })
+      errors.push('Lastname must contain a letters')    
     }
     if (!isLettersAndSpaces(middlename)) {
-    return   res.status(422).send({
-        message : 'Middlename must contain a letters',
-        error: 422,
-        status: false
-    })
+      errors.push('Middlename must contain a letters')    
+    }
+
+    if (errors.length > 0) {
+        return res.status(422).send({
+          status:422,
+          success:false,
+          errors: errors,
+          message: errors.join('. ')
+        })
     }
 
     next()
