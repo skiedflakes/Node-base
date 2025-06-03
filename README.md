@@ -55,5 +55,3 @@ A backend server built with **Node.js**, **Express**, and support for **MySQL** 
 
 ---
 
-## 📁 Suggested Folder Structure
-
